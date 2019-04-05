@@ -1,4 +1,7 @@
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -30,13 +33,52 @@ public class Frame extends JFrame
 					transactions.add(transfer);
 			menuBar.add(transactions);
 			
-			JMenu home = new JMenu("Home");
+			JMenuItem home = new JMenuItem("Home");
 				menuBar.add(home);	
-			
+				
+		//Host Card	
 		JPanel hostPanel = new JPanel();
 		CardLayout cardLayout = new CardLayout();
 		hostPanel.setLayout(cardLayout);
+		add(hostPanel);
 		
+		//Welcome Panel
+		JPanel welcomePanel = new WelcomePanel();
+		hostPanel.add(welcomePanel, "WelcomePanel");
+		
+		
+		home.addActionListener(new ActionListener()
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				cardLayout.show(hostPanel, "WelcomePanel");
+			}
+		});
+		
+		//Deposit or Withdraw Panel
+		JPanel depositOrWithdrawPanel = new DepositOrWithdrawPanel();
+		hostPanel.add(depositOrWithdrawPanel, "DepositOrWithdrawPanel");
+		
+		depositOrWithdraw.addActionListener(new ActionListener()
+		{	
+			public void actionPerformed(ActionEvent e) 
+			{
+				cardLayout.show(hostPanel, "DepositOrWithdrawPanel");
+			}
+		});
+		
+		//Create Account
+		JPanel CreateAccountPanel = new CreateAccountPanel();
+		hostPanel.add(CreateAccountPanel, "CreateAccountPanel");
+		
+		add.addActionListener(new ActionListener()
+		{	
+			public void actionPerformed(ActionEvent e) 
+			{
+				cardLayout.show(hostPanel, "CreateAccountPanel");
+			}
+		});
 		
 		setJMenuBar(menuBar);
 		setVisible(true);
